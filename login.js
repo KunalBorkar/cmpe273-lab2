@@ -30,6 +30,7 @@ Login.prototype.login = function(_name, _email) {
 	* Generate unique session id and set it into sessionMap like foo@bar.com
 	*/
 	var sessionId = new Date().getTime();
+
 	this.sessionMap[sessionId] = { name: _name, email: _email } 
 	
 	console.log('new session id ' + sessionId + ' for login::' + _email);
@@ -41,11 +42,23 @@ Login.prototype.login = function(_name, _email) {
  * Logout from the server
  */ 
 Login.prototype.logout = function(sessionId) {
+
+	delete this.sessionMap[sessionId];
+	
 	console.log('logout::' + sessionId);
-   /*
-	* TODO: Remove the given sessionId from the sessionMap
-	*/
+   };
+
+Login.prototype.getName = function(oldSessionID){
+
+	return this.sessionMap[oldSessionID].name;
+
 };
 
+
+Login.prototype.getEmail = function(oldSessionID) {
+
+	return this.sessionMap[oldSessionID].email;
+
+};
 // Export the Login class
 module.exports = new Login();
